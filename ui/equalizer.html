@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kyara Player Equalizer</title>
+    <link rel="stylesheet" href="./src/equalizer.css" />
+    <link rel="stylesheet" href="./src/cursors.css" />
+  </head>
+  <body>
+    <main id="eq-window">
+      <div id="eq-title"></div>
+      <div id="eq-shade" class="ctl" title="Modo compacto"></div>
+      <div id="eq-close" class="ctl" title="Fechar"></div>
+      <div id="eq-on" class="ctl" title="Ligar/desligar"></div>
+      <div id="eq-auto" class="ctl" title="Carregar preset automaticamente"></div>
+      <div id="eq-presets" class="ctl" title="Presets"></div>
+      <canvas id="eq-graph" width="113" height="19"></canvas>
+      <div id="preamp" class="band ctl" data-band="-1"><div class="thumb"></div></div>
+    </main>
+    <script type="module" src="./src/equalizer.ts"></script>
+  </body>
+</html>

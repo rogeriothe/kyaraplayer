@@ -1,0 +1,219 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Kyara Player",
+  "version": "0.1.0",
+  "identifier": "dev.estudos.kyaraplayer",
+  "build": {
+    "devUrl": "http://localhost:5173",
+    "frontendDist": "../dist",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Kyara Player",
+        "width": 275,
+        "height": 116,
+        "resizable": true,
+        "maximizable": false,
+        "decorations": false,
+        "transparent": true,
+        "shadow": false,
+        "dragDropEnabled": true,
+        "minWidth": 275,
+        "minHeight": 116,
+        "maxWidth": 275,
+        "maxHeight": 116
+      },
+      {
+        "label": "equalizer",
+        "title": "Kyara Player Equalizer",
+        "url": "equalizer.html",
+        "width": 275,
+        "height": 116,
+        "minWidth": 275,
+        "minHeight": 116,
+        "maxWidth": 275,
+        "maxHeight": 116,
+        "resizable": true,
+        "maximizable": false,
+        "decorations": false,
+        "transparent": true,
+        "shadow": false,
+        "visible": false,
+        "skipTaskbar": true
+      },
+      {
+        "label": "playlist",
+        "title": "Kyara Player Playlist",
+        "url": "playlist.html",
+        "width": 275,
+        "height": 232,
+        "minWidth": 275,
+        "minHeight": 116,
+        "resizable": true,
+        "maximizable": false,
+        "decorations": false,
+        "transparent": true,
+        "shadow": false,
+        "visible": false,
+        "skipTaskbar": true,
+        "dragDropEnabled": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/icon.png"
+    ],
+    "fileAssociations": [
+      {
+        "ext": [
+          "mp3",
+          "mp2",
+          "mp1"
+        ],
+        "mimeType": "audio/mpeg",
+        "description": "Áudio MPEG",
+        "role": "Viewer",
+        "rank": "Alternate",
+        "name": "MPEG audio"
+      },
+      {
+        "ext": [
+          "flac"
+        ],
+        "mimeType": "audio/flac",
+        "description": "Áudio FLAC",
+        "role": "Viewer",
+        "rank": "Alternate",
+        "name": "FLAC audio"
+      },
+      {
+        "ext": [
+          "ogg",
+          "oga"
+        ],
+        "mimeType": "audio/ogg",
+        "description": "Áudio Ogg Vorbis",
+        "role": "Viewer",
+        "rank": "Alternate",
+        "name": "Ogg audio"
+      },
+      {
+        "ext": [
+          "opus"
+        ],
+        "mimeType": "audio/x-opus+ogg",
+        "description": "Áudio Opus",
+        "role": "Viewer",
+        "rank": "Alternate",
+        "name": "Opus audio"
+      },
+      {
+        "ext": [
+          "wav"
+        ],
+        "mimeType": "audio/x-wav",
+        "description": "Áudio WAV",
+        "role": "Viewer",
+        "rank": "Alternate",
+        "name": "WAV audio"
+      },
+      {
+        "ext": [
+          "aiff",
+          "aif"
+        ],
+        "mimeType": "audio/x-aiff",
+        "description": "Áudio AIFF",
+        "role": "Viewer",
+        "rank": "Alternate",
+        "name": "AIFF audio"
+      },
+      {
+        "ext": [
+          "m4a",
+          "alac"
+        ],
+        "mimeType": "audio/mp4",
+        "description": "Áudio MPEG-4",
+        "role": "Viewer",
+        "rank": "Alternate",
+        "name": "MPEG-4 audio"
+      },
+      {
+        "ext": [
+          "aac"
+        ],
+        "mimeType": "audio/aac",
+        "description": "Áudio AAC",
+        "role": "Viewer",
+        "rank": "Alternate",
+        "name": "AAC audio"
+      },
+      {
+        "ext": [
+          "mka"
+        ],
+        "mimeType": "audio/x-matroska",
+        "description": "Áudio Matroska",
+        "role": "Viewer",
+        "rank": "Alternate",
+        "name": "Matroska audio"
+      },
+      {
+        "ext": [
+          "m3u",
+          "m3u8"
+        ],
+        "mimeType": "audio/x-mpegurl",
+        "description": "Playlist M3U",
+        "role": "Viewer",
+        "rank": "Alternate",
+        "name": "M3U playlist"
+      },
+      {
+        "ext": [
+          "pls"
+        ],
+        "mimeType": "audio/x-scpls",
+        "description": "Playlist PLS",
+        "role": "Viewer",
+        "rank": "Alternate",
+        "name": "PLS playlist"
+      },
+      {
+        "ext": [
+          "wsz"
+        ],
+        "mimeType": "application/x-winamp-skin",
+        "description": "Skin clássica",
+        "role": "Viewer",
+        "rank": "Alternate",
+        "name": "Classic skin"
+      }
+    ],
+    "linux": {
+      "deb": {
+        "files": {
+          "/usr/share/mime/packages/kyara-player.xml": "linux/kyara-player-mime.xml"
+        }
+      },
+      "rpm": {
+        "files": {
+          "/usr/share/mime/packages/kyara-player.xml": "linux/kyara-player-mime.xml"
+        }
+      }
+    }
+  }
+}

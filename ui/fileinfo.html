@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Informações do arquivo</title>
+    <link rel="stylesheet" href="./src/fileinfo.css" />
+  </head>
+  <body>
+    <form id="form">
+      <input id="path" readonly aria-label="Arquivo" />
+      <div class="columns">
+        <fieldset id="tags">
+          <legend>Tags</legend>
+          <label>Título <input name="title" /></label>
+          <label>Artista <input name="artist" /></label>
+          <label>Álbum <input name="album" /></label>
+          <div class="row">
+            <label>Ano <input name="year" /></label>
+            <label>Faixa <input name="track" /></label>
+          </div>
+          <label>Gênero <input name="genre" /></label>
+          <label>Comentário <textarea name="comment" rows="3"></textarea></label>
+        </fieldset>
+        <fieldset>
+          <legend>Arquivo</legend>
+          <dl id="props"></dl>
+        </fieldset>
+      </div>
+      <p id="status" role="status"></p>
+      <div class="buttons">
+        <button type="submit" id="save">Salvar</button>
+        <button type="button" id="close">Fechar</button>
+      </div>
+    </form>
+    <script type="module" src="./src/fileinfo.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,163 @@
+/* Classic main window. Every element is a sprite cut from the active skin's sheets
+   (exposed as --sheet-* variables by skin.ts). Coordinates follow the 2.x skin format. */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 275px;
+  height: 116px;
+}
+html.double, html.double body { width: 550px; height: 232px; }
+html.shade, html.shade body { height: 14px; }
+html.double.shade, html.double.shade body { height: 28px; }
+html, body {
+  overflow: hidden;
+  background: #000;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+#main-window {
+  position: relative;
+  width: 275px;
+  height: 116px;
+  background: var(--sheet-main) 0 0 no-repeat;
+  image-rendering: pixelated;
+}
+#main-window div, #main-window canvas { position: absolute; background-repeat: no-repeat; }
+.double #main-window { transform: scale(2); transform-origin: 0 0; }
+
+/* Windowshade: 14 px bar with mini controls. */
+.shade #main-window { height: 14px; }
+.shade #main-window > :not(#titlebar, #shade-controls, #shade-position, #shade-time, #shade-vis) { display: none; }
+.shade #titlebar { background-position: -27px -42px; }
+.shade .focused #titlebar { background-position: -27px -29px; }
+.shade #btn-shade { background-position: 0 -27px; }
+.shade #btn-shade:active { background-position: -9px -27px; }
+#shade-controls, #shade-position, #shade-time, #shade-vis { display: none; }
+.shade #shade-controls, .shade #shade-position, .shade #shade-time, .shade #shade-vis { display: block; }
+#shade-vis { left: 79px; top: 5px; width: 38px; height: 5px; }
+#shade-controls { left: 169px; top: 2px; width: 57px; height: 10px; }
+#shade-controls > div { position: relative !important; float: left; height: 10px; }
+#shade-controls [data-action="prev"] { width: 7px; }
+#shade-controls [data-action="play"] { width: 10px; }
+#shade-controls [data-action="pause"] { width: 9px; }
+#shade-controls [data-action="stop"] { width: 9px; }
+#shade-controls [data-action="next"] { width: 10px; }
+#shade-controls [data-action="eject"] { width: 10px; margin-left: 1px; }
+#shade-position { left: 226px; top: 4px; width: 17px; height: 7px; background: var(--sheet-titlebar) 0 -36px; }
+#shade-position .thumb { top: 0; width: 3px; height: 7px; background: var(--sheet-titlebar) -20px -36px; }
+.stopped #shade-position .thumb { display: none; }
+#shade-time { left: 127px; top: 4px; height: 6px; }
+
+/* Title bar */
+#titlebar { left: 0; top: 0; width: 275px; height: 14px; background: var(--sheet-titlebar) -27px -15px; }
+.focused #titlebar { background-position: -27px 0; }
+#titlebar .ctl { top: 3px; width: 9px; height: 9px; background-image: var(--sheet-titlebar); }
+#btn-options { left: 6px; background-position: 0 0; }
+#btn-options:active { background-position: 0 -9px; }
+#btn-minimize { left: 244px; background-position: -9px 0; }
+#btn-minimize:active { background-position: -9px -9px; }
+#btn-shade { left: 254px; background-position: 0 -18px; }
+#btn-shade:active { background-position: -9px -18px; }
+#btn-close { left: 264px; background-position: -18px 0; }
+#btn-close:active { background-position: -18px -9px; }
+
+#clutter-bar { left: 10px; top: 22px; width: 8px; height: 43px; background: var(--sheet-titlebar) -304px 0; }
+
+/* Status display */
+#play-pause { left: 26px; top: 28px; width: 9px; height: 9px; background: var(--sheet-playpaus) -18px 0; }
+.playing #play-pause { background-position: 0 0; }
+.paused #play-pause { background-position: -9px 0; }
+#work-indicator { left: 24px; top: 28px; width: 3px; height: 9px; display: none; background: var(--sheet-playpaus) -39px 0; }
+.playing #work-indicator { display: block; }
+/* Lit while a stream connects (classic "working" light). */
+.connecting #work-indicator { display: block; background-position: -36px 0; }
+
+#time { left: 39px; top: 26px; width: 59px; height: 13px; }
+.stopped #time { display: none; }
+.paused #time { animation: blink 2s step-start 1s infinite; }
+@keyframes blink { 50% { visibility: hidden; } }
+#time .digit { top: 0; width: 9px; height: 13px; background-image: var(--sheet-digits); }
+#min-1 { left: 9px; }
+#min-2 { left: 21px; }
+#sec-1 { left: 39px; }
+#sec-2 { left: 51px; }
+#minus-sign { left: -1px; top: 6px; width: 5px; height: 1px; background: var(--sheet-numbers) -9px -6px; }
+.remaining #minus-sign { background-position: -20px -6px; }
+.nums-ex #minus-sign { left: 0; top: 0; width: 9px; height: 13px; background: var(--sheet-nums_ex) -90px 0; }
+.nums-ex .remaining #minus-sign { background-position: -99px 0; }
+
+#visualizer { left: 24px; top: 43px; width: 76px; height: 16px; }
+
+/* Bitmap text */
+.text { white-space: nowrap; font-size: 0; line-height: 0; }
+.ch { display: inline-block; width: 5px; height: 6px; background: var(--sheet-text) no-repeat; }
+#marquee { left: 111px; top: 27px; width: 154px; height: 6px; overflow: hidden; }
+#marquee-text { position: static !important; }
+#kbps { left: 111px; top: 43px; width: 15px; height: 6px; overflow: hidden; }
+#khz { left: 156px; top: 43px; width: 10px; height: 6px; overflow: hidden; }
+.stopped #kbps, .stopped #khz { display: none; }
+
+#mono { left: 212px; top: 41px; width: 27px; height: 12px; background: var(--sheet-monoster) -29px -12px; }
+#stereo { left: 239px; top: 41px; width: 29px; height: 12px; background: var(--sheet-monoster) 0 -12px; }
+#mono.on { background-position: -29px 0; }
+#stereo.on { background-position: 0 0; }
+
+/* Sliders: background frame chosen in JS, thumbs positioned in JS. */
+#volume { left: 107px; top: 57px; width: 68px; height: 13px; background-image: var(--sheet-volume); }
+#balance { left: 177px; top: 57px; width: 38px; height: 13px; background-image: var(--sheet-balance); }
+#volume .thumb, #balance .thumb { top: 1px; width: 14px; height: 11px; }
+#volume .thumb { background: var(--sheet-volume) -15px -422px; }
+#volume.dragging .thumb { background-position: 0 -422px; }
+#balance .thumb { background: var(--sheet-balance) -15px -422px; }
+#balance.dragging .thumb { background-position: 0 -422px; }
+
+#position { left: 16px; top: 72px; width: 248px; height: 10px; background: var(--sheet-posbar) 0 0; }
+#position .thumb { top: 0; width: 29px; height: 10px; background: var(--sheet-posbar) -248px 0; }
+#position.dragging .thumb { background-position: -278px 0; }
+.stopped #position .thumb, #position.disabled .thumb { display: none; }
+
+/* Window toggles */
+#btn-eq, #btn-pl { top: 58px; width: 23px; height: 12px; background-image: var(--sheet-shufrep); }
+#btn-eq { left: 219px; background-position: 0 -61px; }
+#btn-eq:active { background-position: -46px -61px; }
+#btn-eq.on { background-position: 0 -73px; }
+#btn-eq.on:active { background-position: -46px -73px; }
+#btn-pl { left: 242px; background-position: -23px -61px; }
+#btn-pl:active { background-position: -69px -61px; }
+#btn-pl.on { background-position: -23px -73px; }
+#btn-pl.on:active { background-position: -69px -73px; }
+
+/* Transport buttons */
+.cbutton { top: 88px; width: 23px; height: 18px; background-image: var(--sheet-cbuttons); }
+#btn-prev { left: 16px; background-position: 0 0; }
+#btn-prev:active { background-position: 0 -18px; }
+#btn-play { left: 39px; background-position: -23px 0; }
+#btn-play:active { background-position: -23px -18px; }
+#btn-pause { left: 62px; background-position: -46px 0; }
+#btn-pause:active { background-position: -46px -18px; }
+#btn-stop { left: 85px; background-position: -69px 0; }
+#btn-stop:active { background-position: -69px -18px; }
+#btn-next { left: 108px; width: 22px; background-position: -92px 0; }
+#btn-next:active { background-position: -92px -18px; }
+#btn-eject { left: 136px; top: 89px; width: 22px; height: 16px; background-position: -114px 0; }
+#btn-eject:active { background-position: -114px -16px; }
+
+#btn-shuffle, #btn-repeat { top: 89px; height: 15px; background-image: var(--sheet-shufrep); }
+#btn-shuffle { left: 164px; width: 47px; background-position: -28px 0; }
+#btn-shuffle:active { background-position: -28px -15px; }
+#btn-shuffle.on { background-position: -28px -30px; }
+#btn-shuffle.on:active { background-position: -28px -45px; }
+#btn-repeat { left: 210px; width: 28px; background-position: 0 0; }
+#btn-repeat:active { background-position: 0 -15px; }
+#btn-repeat.on { background-position: 0 -30px; }
+#btn-repeat.on:active { background-position: 0 -45px; }
+
+#about { left: 253px; top: 91px; width: 13px; height: 15px; }
+
+/* region.txt shapes (see skin.ts). */
+html.has-region, html.has-region body { background: transparent; }
+#main-window { clip-path: var(--region-normal, none); }
+.shade #main-window { clip-path: var(--region-windowshade, none); }

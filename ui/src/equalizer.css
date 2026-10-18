@@ -1,0 +1,65 @@
+/* Classic equalizer window, built from eqmain.bmp (coordinates per the 2.x skin format). */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html.double, html.double body { width: 550px; height: 232px; }
+html.shade, html.shade body { height: 14px; }
+html.double.shade, html.double.shade body { height: 28px; }
+html, body {
+  width: 275px;
+  height: 116px;
+  overflow: hidden;
+  background: #000;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+#eq-window {
+  position: relative;
+  width: 275px;
+  height: 116px;
+  background: var(--sheet-eqmain) 0 0 no-repeat;
+  image-rendering: pixelated;
+}
+#eq-window div, #eq-window canvas { position: absolute; background-repeat: no-repeat; }
+.double #eq-window { transform: scale(2); transform-origin: 0 0; }
+
+/* Windowshade: eq_ex.bmp bar. */
+.shade #eq-window { height: 14px; background: var(--sheet-eq_ex) 0 -15px; }
+.shade #eq-window.focused { background-position: 0 0; }
+.shade #eq-window > :not(#eq-shade, #eq-close) { display: none; }
+.shade #eq-shade:active { background: var(--sheet-eq_ex) -1px -38px; }
+.shade #eq-close { background: var(--sheet-eq_ex) -11px -38px; }
+.shade #eq-close:active { background-position: -11px -47px; }
+
+#eq-title { left: 0; top: 0; width: 275px; height: 14px; background: var(--sheet-eqmain) 0 -149px; }
+.focused #eq-title { background-position: 0 -134px; }
+#eq-close { left: 264px; top: 3px; width: 9px; height: 9px; }
+#eq-close:active { background: var(--sheet-eqmain) 0 -125px; }
+#eq-shade { left: 254px; top: 3px; width: 9px; height: 9px; }
+#eq-shade:active { background: var(--sheet-eq_ex) -1px -38px; }
+
+#eq-on { left: 14px; top: 18px; width: 26px; height: 12px; background: var(--sheet-eqmain) -10px -119px; }
+#eq-on:active { background-position: -128px -119px; }
+#eq-on.on { background-position: -69px -119px; }
+#eq-on.on:active { background-position: -187px -119px; }
+#eq-auto { left: 40px; top: 18px; width: 32px; height: 12px; background: var(--sheet-eqmain) -36px -119px; }
+#eq-auto:active { background-position: -154px -119px; }
+#eq-auto.on { background-position: -95px -119px; }
+#eq-auto.on:active { background-position: -213px -119px; }
+#eq-presets { left: 217px; top: 18px; width: 44px; height: 12px; background: var(--sheet-eqmain) -224px -164px; }
+#eq-presets:active { background-position: -224px -176px; }
+
+#eq-graph { left: 86px; top: 17px; width: 113px; height: 19px; }
+
+/* Band sliders: 14x63 well (frame picked in JS), 11x11 thumb. */
+.band { top: 38px; width: 14px; height: 63px; background-image: var(--sheet-eqmain); }
+#preamp { left: 21px; }
+.band .thumb { left: 1px; width: 11px; height: 11px; background: var(--sheet-eqmain) 0 -164px; }
+.band.dragging .thumb { background-position: 0 -176px; }
+
+/* region.txt shapes (see skin.ts). */
+html.has-region, html.has-region body { background: transparent; }
+#eq-window { clip-path: var(--region-equalizer, none); }
+.shade #eq-window { clip-path: var(--region-equalizerws, none); }

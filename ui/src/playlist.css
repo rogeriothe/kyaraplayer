@@ -1,0 +1,125 @@
+/* Classic playlist window, built from pledit.bmp. Tiled parts use cropped images
+   (--pl-*) set by playlist.ts; fixed parts use sheet offsets. */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+#playlist-window {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  image-rendering: pixelated;
+  --pl: var(--sheet-pledit);
+}
+#playlist-window div { background-repeat: no-repeat; }
+
+/* Top bar: corners, title and tiled fill (focused variants via .focused). */
+.pl-top { position: relative; display: flex; height: 20px; min-height: 20px; }
+.pl-top-left { width: 25px; background: var(--pl) 0 -21px; }
+.pl-top-title { width: 100px; background: var(--pl) -26px -21px; }
+.pl-top-right { width: 25px; background: var(--pl) -153px -21px; }
+.pl-top-fill { flex: 1; background-image: var(--pl-top-tile) !important; background-repeat: repeat-x !important; }
+.focused .pl-top-left { background-position: 0 0; }
+.focused .pl-top-title { background-position: -26px 0; }
+.focused .pl-top-right { background-position: -153px 0; }
+.focused .pl-top-fill { background-image: var(--pl-top-tile-focused) !important; }
+#pl-close, #pl-shade { position: absolute; top: 3px; width: 9px; height: 9px; }
+#pl-close { right: 2px; }
+#pl-shade { right: 12px; }
+#pl-close:active { background: var(--pl) -52px -42px; }
+#pl-shade:active { background: var(--pl) -62px -42px; }
+
+/* Middle: side tiles and the track list. */
+.pl-middle { flex: 1; display: flex; min-height: 0; }
+.pl-left { width: 12px; background-image: var(--pl-left-tile) !important; background-repeat: repeat-y !important; }
+.pl-right { position: relative; width: 20px; background-image: var(--pl-right-tile) !important; background-repeat: repeat-y !important; }
+#pl-scroll { position: absolute; top: 0; bottom: 0; left: 5px; width: 8px; }
+#pl-handle { position: absolute; left: 0; top: 0; width: 8px; height: 18px; background: var(--pl) -52px -53px; }
+#pl-scroll.dragging #pl-handle { background-position: -61px -53px; }
+
+#pl-list {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  padding: 3px 0;
+  overflow: hidden;
+  outline: none;
+  background: var(--pl-normal-bg, #000);
+  font-family: var(--pl-font, Arial), sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+}
+.row {
+  display: flex;
+  height: 13px;
+  line-height: 13px;
+  padding-left: 1px;
+  color: var(--pl-normal, #0f0);
+  white-space: nowrap;
+}
+.row.selected { background: var(--pl-selected-bg, #00f); }
+.row.current { color: var(--pl-current, #fff); }
+.row .title { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.row .dur { padding: 0 3px 0 6px; }
+#pl-list.drop-target { box-shadow: inset 0 0 0 1px var(--pl-current, #fff); }
+
+/* Bottom bar. */
+.pl-bottom { position: relative; height: 38px; min-height: 38px; }
+.pl-bottom-left { position: absolute; left: 0; top: 0; width: 125px; height: 38px; background: var(--pl) 0 -72px; }
+.pl-bottom-fill { position: absolute; left: 125px; right: 150px; top: 0; height: 38px; background-image: var(--pl-bottom-tile) !important; background-repeat: repeat-x !important; }
+.pl-vis { position: absolute; right: 150px; top: 0; width: 75px; height: 38px; display: none; background: var(--pl) -205px 0; }
+.wide .pl-vis { display: block; }
+.pl-bottom-right { position: absolute; right: 0; top: 0; width: 150px; height: 38px; background: var(--pl) -126px -72px; }
+
+.text { position: absolute; white-space: nowrap; font-size: 0; line-height: 0; }
+.ch { display: inline-block; width: 5px; height: 6px; background: var(--sheet-text) no-repeat; }
+#pl-running { left: 7px; top: 10px; height: 6px; }
+#pl-minitime { left: 66px; top: 23px; height: 6px; }
+#pl-actions { position: absolute; left: 3px; top: 22px; display: flex; }
+#pl-actions > div { position: relative; width: 10px; height: 10px; }
+#pl-actions > div[data-action="prev"] { width: 7px; }
+#pl-actions > div[data-action="eject"] { width: 9px; }
+#pl-scroll-up, #pl-scroll-down { position: absolute; right: 7px; width: 8px; height: 5px; }
+#pl-scroll-up { top: 2px; }
+#pl-scroll-down { top: 8px; }
+
+.pl-menu-btn { position: absolute; bottom: 12px; width: 22px; height: 18px; }
+.pl-menu-btn[data-menu="add"] { left: 14px; }
+.pl-menu-btn[data-menu="rem"] { left: 43px; }
+.pl-menu-btn[data-menu="sel"] { left: 72px; }
+.pl-menu-btn[data-menu="misc"] { left: 101px; }
+.pl-menu-btn[data-menu="list"] { right: 22px; }
+#pl-resize { position: absolute; right: 0; bottom: 0; width: 20px; height: 20px; }
+
+/* Pop-up sprite menus. */
+#pl-menu { position: absolute; display: none; }
+#pl-menu.open { display: block; }
+#pl-menu .bar { position: absolute; left: -3px; bottom: 0; width: 3px; background-image: var(--pl); }
+#pl-menu .item { width: 22px; height: 18px; background-image: var(--pl); }
+
+/* Windowshade: 14 px bar with the current title and time. */
+#pl-shade-bar { display: none; position: absolute; inset: 0; height: 14px; }
+.shade #pl-shade-bar { display: block; }
+.shade #playlist-window > :not(#pl-shade-bar, #pl-menu) { display: none; }
+#pl-shade-bar .left { position: absolute; left: 0; top: 0; width: 25px; height: 14px; background: var(--pl) -72px -42px; }
+#pl-shade-bar .fill { position: absolute; left: 25px; right: 50px; top: 0; height: 14px; background-image: var(--pl-shade-tile) !important; background-repeat: repeat-x !important; }
+#pl-shade-bar .right { position: absolute; right: 0; top: 0; width: 50px; height: 14px; background: var(--pl) -99px -57px; }
+.focused #pl-shade-bar .right { background-position: -99px -42px; }
+#pl-shade-title { left: 5px; top: 4px; right: 80px; height: 6px; overflow: hidden; }
+#pl-shade-time { right: 30px; top: 4px; height: 6px; }
+#pl-unshade, #pl-shade-close { position: absolute; top: 3px; width: 9px; height: 9px; }
+#pl-unshade { right: 12px; }
+#pl-unshade:active { background: var(--pl) -150px -42px; }
+#pl-shade-close { right: 2px; }
+#pl-shade-close:active { background: var(--pl) -52px -42px; }

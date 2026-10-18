@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kyara Player Playlist</title>
+    <link rel="stylesheet" href="./src/playlist.css" />
+    <link rel="stylesheet" href="./src/cursors.css" />
+  </head>
+  <body>
+    <main id="playlist-window">
+      <div class="pl-top">
+        <div class="pl-top-left"></div>
+        <div class="pl-top-fill"></div>
+        <div class="pl-top-title"></div>
+        <div class="pl-top-fill"></div>
+        <div class="pl-top-right"></div>
+        <div id="pl-shade" class="ctl" title="Modo compacto"></div>
+        <div id="pl-close" class="ctl" title="Fechar"></div>
+      </div>
+
+      <div class="pl-middle">
+        <div class="pl-left"></div>
+        <div id="pl-list" class="ctl" tabindex="0"></div>
+        <div class="pl-right">
+          <div id="pl-scroll" class="ctl"><div id="pl-handle"></div></div>
+        </div>
+      </div>
+
+      <div class="pl-bottom">
+        <div class="pl-bottom-left"></div>
+        <div class="pl-bottom-fill"></div>
+        <div class="pl-vis"></div>
+        <div class="pl-bottom-right">
+          <div id="pl-running" class="text"></div>
+          <div id="pl-actions">
+            <div class="ctl" data-action="prev" title="Anterior"></div>
+            <div class="ctl" data-action="play" title="Play"></div>
+            <div class="ctl" data-action="pause" title="Pause"></div>
+            <div class="ctl" data-action="stop" title="Stop"></div>
+            <div class="ctl" data-action="next" title="Próxima"></div>
+            <div class="ctl" data-action="eject" title="Abrir"></div>
+          </div>
+          <div id="pl-minitime" class="text"></div>
+          <div id="pl-scroll-up" class="ctl" title="Subir"></div>
+          <div id="pl-scroll-down" class="ctl" title="Descer"></div>
+        </div>
+        <div class="pl-menu-btn ctl" data-menu="add" title="Adicionar"></div>
+        <div class="pl-menu-btn ctl" data-menu="rem" title="Remover"></div>
+        <div class="pl-menu-btn ctl" data-menu="sel" title="Selecionar"></div>
+        <div class="pl-menu-btn ctl" data-menu="misc" title="Diversos"></div>
+        <div class="pl-menu-btn ctl" data-menu="list" title="Lista"></div>
+        <div id="pl-resize" class="ctl"></div>
+      </div>
+
+      <div id="pl-shade-bar">
+        <div class="left"></div>
+        <div class="fill"></div>
+        <div class="right"></div>
+        <div id="pl-shade-title" class="text"></div>
+        <div id="pl-shade-time" class="text"></div>
+        <div id="pl-unshade" class="ctl" title="Expandir"></div>
+        <div id="pl-shade-close" class="ctl" title="Fechar"></div>
+      </div>
+
+      <div id="pl-menu" class="ctl"></div>
+    </main>
+    <script type="module" src="./src/playlist.ts"></script>
+  </body>
+</html>

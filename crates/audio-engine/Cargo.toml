@@ -1,0 +1,20 @@
+[package]
+name = "audio-engine"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+cpal = "0.18.2"
+crossbeam-channel = "0.5.17"
+log = "0.4.34"
+ringbuf = "0.5.3"
+rubato = "5.0.1"
+rustfft = "6.4.1"
+serde = { version = "1.0.229", features = ["derive"] }
+symphonia = { version = "0.6.1", features = ["all", "opt-simd"] }
+thiserror = "2.0.21"
+ureq = "3.4.2"
+
+[dev-dependencies]
+env_logger = "0.11.11"

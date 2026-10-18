@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Classic skin archives, so file managers can open them with Kyara Player.
+     Installed to /usr/share/mime/packages; dpkg/rpm triggers run update-mime-database. -->
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-winamp-skin">
+    <comment>Classic player skin</comment>
+    <comment xml:lang="pt_BR">Skin clássica de player</comment>
+    <sub-class-of type="application/zip"/>
+    <glob pattern="*.wsz"/>
+  </mime-type>
+</mime-info>

@@ -1,0 +1,10 @@
+[package]
+name = "playlist"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+lofty = "0.25.4"
+log = "0.4.34"
+serde = { version = "1.0.229", features = ["derive"] }

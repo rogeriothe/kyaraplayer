@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kyara Player</title>
+    <link rel="stylesheet" href="./src/style.css" />
+    <link rel="stylesheet" href="./src/cursors.css" />
+  </head>
+  <body>
+    <main id="main-window" class="stopped">
+      <div id="titlebar">
+        <div id="btn-options" class="ctl" title="Opções"></div>
+        <div id="btn-minimize" class="ctl" title="Minimizar"></div>
+        <div id="btn-shade" class="ctl" title="Modo compacto"></div>
+        <div id="btn-close" class="ctl" title="Fechar"></div>
+      </div>
+
+      <div id="shade-controls">
+        <div class="ctl" data-action="prev" title="Anterior"></div>
+        <div class="ctl" data-action="play" title="Play"></div>
+        <div class="ctl" data-action="pause" title="Pause"></div>
+        <div class="ctl" data-action="stop" title="Stop"></div>
+        <div class="ctl" data-action="next" title="Próxima"></div>
+        <div class="ctl" data-action="eject" title="Abrir"></div>
+      </div>
+      <div id="shade-position" class="ctl"><div class="thumb"></div></div>
+      <div id="shade-time" class="text ctl"></div>
+      <canvas id="shade-vis" class="ctl" width="38" height="5" title="Clique: espectro / osciloscópio / desligado. Botão direito: estilos"></canvas>
+
+      <div id="clutter-bar"></div>
+      <div id="work-indicator"></div>
+      <div id="play-pause"></div>
+      <div id="time" class="ctl" title="Decorrido / restante">
+        <div id="minus-sign"></div>
+        <div class="digit" id="min-1"></div>
+        <div class="digit" id="min-2"></div>
+        <div class="digit" id="sec-1"></div>
+        <div class="digit" id="sec-2"></div>
+      </div>
+      <canvas id="visualizer" class="ctl" width="76" height="16" title="Clique: espectro / osciloscópio / desligado. Botão direito: estilos"></canvas>
+
+      <div id="marquee" class="ctl"><div id="marquee-text" class="text"></div></div>
+      <div id="kbps" class="text"></div>
+      <div id="khz" class="text"></div>
+      <div id="mono"></div>
+      <div id="stereo"></div>
+
+      <div id="volume" class="ctl slider"><div class="thumb"></div></div>
+      <div id="balance" class="ctl slider"><div class="thumb"></div></div>
+      <div id="btn-eq" class="ctl toggle" title="Equalizador"></div>
+      <div id="btn-pl" class="ctl toggle" title="Playlist"></div>
+
+      <div id="position" class="ctl slider"><div class="thumb"></div></div>
+
+      <div id="btn-prev" class="ctl cbutton" title="Anterior (Z)"></div>
+      <div id="btn-play" class="ctl cbutton" title="Play (X)"></div>
+      <div id="btn-pause" class="ctl cbutton" title="Pause (C)"></div>
+      <div id="btn-stop" class="ctl cbutton" title="Stop (V)"></div>
+      <div id="btn-next" class="ctl cbutton" title="Próxima (B)"></div>
+      <div id="btn-eject" class="ctl cbutton" title="Abrir arquivo (L)"></div>
+      <div id="btn-shuffle" class="ctl toggle" title="Aleatório (S)"></div>
+      <div id="btn-repeat" class="ctl toggle" title="Repetir (R)"></div>
+      <div id="about" class="ctl" title="Sobre"></div>
+    </main>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>

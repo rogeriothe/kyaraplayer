@@ -1,0 +1,29 @@
+/* File info window: system look, like the original's dialog. */
+:root {
+  color-scheme: light dark;
+  --bg: #f0f0f0;
+  --fg: #1a1a1a;
+  --muted: #555;
+  --error: #b00020;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #2b2b2b; --fg: #eee; --muted: #aaa; --error: #ff8a80; }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--fg); }
+body { font: 13px system-ui, sans-serif; }
+form { display: flex; flex-direction: column; gap: 8px; padding: 10px; }
+input, textarea { width: 100%; padding: 3px 5px; font: inherit; }
+#path { color: var(--muted); }
+.columns { display: grid; grid-template-columns: 3fr 2fr; gap: 8px; }
+@media (max-width: 440px) { .columns { grid-template-columns: 1fr; } }
+fieldset { margin: 0; padding: 6px 8px 8px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+label { display: flex; flex-direction: column; gap: 2px; font-size: 12px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 8px; font-size: 12px; }
+dt { color: var(--muted); }
+dd { margin: 0; overflow-wrap: anywhere; }
+#status { margin: 0; min-height: 1.2em; font-size: 12px; }
+#status.error { color: var(--error); }
+.buttons { display: flex; justify-content: flex-end; gap: 6px; }
+button { font: inherit; padding: 3px 14px; }

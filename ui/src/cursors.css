@@ -1,0 +1,40 @@
+/* Skin cursors. skin.ts sets --cur-<name> for every *.cur the skin ships; anything
+   missing falls back to the skin's normal cursor and then to the system one.
+   Names follow the classic skin format (NORMAL.CUR, TITLEBAR.CUR, ...). */
+
+/* Main window */
+#main-window { cursor: var(--cur-normal, default); }
+#titlebar { cursor: var(--cur-titlebar, var(--cur-normal, default)); }
+#btn-options { cursor: var(--cur-mainmenu, var(--cur-normal, default)); }
+#btn-minimize { cursor: var(--cur-min, var(--cur-normal, default)); }
+#btn-shade { cursor: var(--cur-winbut, var(--cur-normal, default)); }
+#btn-close { cursor: var(--cur-close, var(--cur-normal, default)); }
+#marquee { cursor: var(--cur-songname, var(--cur-normal, default)); }
+#position { cursor: var(--cur-posbar, var(--cur-normal, default)); }
+#volume, #balance { cursor: var(--cur-volbal, var(--cur-normal, default)); }
+
+/* Main window, shaded */
+.shade #main-window, .shade #titlebar, .shade #shade-controls,
+.shade #shade-time { cursor: var(--cur-wsnormal, var(--cur-normal, default)); }
+.shade #btn-options { cursor: var(--cur-mmenu, var(--cur-wsnormal, var(--cur-normal, default))); }
+.shade #btn-minimize { cursor: var(--cur-wsmin, var(--cur-wsnormal, var(--cur-normal, default))); }
+.shade #btn-shade { cursor: var(--cur-wswinbut, var(--cur-wsnormal, var(--cur-normal, default))); }
+.shade #btn-close { cursor: var(--cur-wsclose, var(--cur-wsnormal, var(--cur-normal, default))); }
+.shade #shade-position { cursor: var(--cur-wsposbar, var(--cur-wsnormal, var(--cur-normal, default))); }
+
+/* Equalizer */
+#eq-window { cursor: var(--cur-eqnormal, default); }
+#eq-title { cursor: var(--cur-eqtitle, var(--cur-eqnormal, default)); }
+#eq-close { cursor: var(--cur-eqclose, var(--cur-eqnormal, default)); }
+#eq-window .band { cursor: var(--cur-eqslid, var(--cur-eqnormal, default)); }
+
+/* Playlist */
+#playlist-window { cursor: var(--cur-pnormal, default); }
+.pl-top { cursor: var(--cur-ptbar, var(--cur-pnormal, default)); }
+#pl-shade { cursor: var(--cur-pwinbut, var(--cur-pnormal, default)); }
+#pl-close { cursor: var(--cur-pclose, var(--cur-pnormal, default)); }
+#pl-scroll { cursor: var(--cur-pvscroll, var(--cur-pnormal, default)); }
+#pl-resize { cursor: var(--cur-psize, nwse-resize); }
+#pl-shade-bar { cursor: var(--cur-pwsnorm, var(--cur-pnormal, default)); }
+#pl-unshade { cursor: var(--cur-pwinbut, var(--cur-pwsnorm, var(--cur-pnormal, default))); }
+#pl-shade-close { cursor: var(--cur-pclose, var(--cur-pwsnorm, var(--cur-pnormal, default))); }

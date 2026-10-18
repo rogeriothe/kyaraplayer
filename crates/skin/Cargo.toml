@@ -1,0 +1,12 @@
+[package]
+name = "skin"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+image = { version = "0.25.10", default-features = false, features = ["bmp", "ico", "png"] }
+log = "0.4.34"
+serde = { version = "1.0.229", features = ["derive"] }
+thiserror = "2.0.21"
+zip = { version = "9.0.4", default-features = false, features = ["deflate"] }
