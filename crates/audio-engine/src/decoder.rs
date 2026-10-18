@@ -211,3 +211,55 @@ impl Source {
         Ok(required)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn fixture(name: &str) -> std::path::PathBuf {
+        Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures").join(name)
+    }
+
+    /// Decode everything; returns (frames, peak amplitude).
+    fn decode_all(src: &mut Source) -> (usize, f32) {
+        let (mut frames, mut peak) = (0, 0.0f32);
+        while let Some(chunk) = src.next_chunk().unwrap() {
+            frames += chunk.samples.len() / chunk.channels;
+            peak = chunk.samples.iter().fold(peak, |p, s| p.max(s.abs()));
+        }
+        (frames, peak)
+    }
+
+    fn open(name: &str) -> Source {
+        Source::open(&fixture(name), &Arc::new(StreamState::default())).unwrap()
+    }
+
+    #[test]
+    fn flac_16_bit_decodes_with_duration() {
+        let mut src = open("sine.flac");
+        assert_eq!(src.format_hint(), (44_100, 2));
+        assert!(src.duration().is_some_and(|d| (d - 0.5).abs() < 0.01));
+        let (frames, peak) = decode_all(&mut src);
+        assert_eq!(frames, 22_050);
+        // Peak measured by ffmpeg's astats on the fixture: -21.07 dBFS.
+        assert!((peak - 0.0884).abs() < 0.001, "peak {peak}");
+    }
+
+    #[test]
+    fn flac_24_bit_96k_decodes_at_full_scale() {
+        let mut src = open("hires.flac");
+        assert_eq!(src.format_hint(), (96_000, 2));
+        let (frames, peak) = decode_all(&mut src);
+        assert_eq!(frames, 48_000);
+        assert!((peak - 0.0884).abs() < 0.001, "24-bit samples mis-scaled: peak {peak}");
+    }
+
+    #[test]
+    fn flac_seeks_sample_accurately() {
+        let mut src = open("sine.flac");
+        let pos = src.seek(0.25).unwrap();
+        assert!((pos - 0.25).abs() < 0.001);
+        let (frames, _) = decode_all(&mut src);
+        assert!((frames as i64 - 11_025).abs() <= 1, "frames after seek: {frames}");
+    }
+}

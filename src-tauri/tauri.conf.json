@@ -207,13 +207,17 @@
       "deb": {
         "files": {
           "/usr/share/mime/packages/kyara-player.xml": "linux/kyara-player-mime.xml"
-        }
+        },
+        "desktopTemplate": "linux/kyara-player.desktop"
       },
       "rpm": {
         "files": {
           "/usr/share/mime/packages/kyara-player.xml": "linux/kyara-player-mime.xml"
-        }
+        },
+        "desktopTemplate": "linux/kyara-player.desktop"
       }
-    }
+    },
+    "category": "Music",
+    "shortDescription": "Player de áudio com skins clássicas"
   }
 }

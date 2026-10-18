@@ -149,6 +149,17 @@ mod tests {
     }
 
     #[test]
+    fn reads_flac_vorbis_comments() {
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../audio-engine/tests/fixtures/sine.flac");
+        let m = read(&path).unwrap();
+        assert_eq!(m.display_title().as_deref(), Some("Kyara - Fixture"));
+        assert!(m.duration.is_some_and(|d| (d - 0.5).abs() < 0.01));
+        let d = details(&path).unwrap();
+        assert_eq!((d.sample_rate, d.channels, d.bit_depth), (Some(44_100), Some(2), Some(16)));
+        assert_eq!(d.tag_format, "VorbisComments");
+    }
+
+    #[test]
     fn tags_round_trip() {
         let path = std::env::temp_dir().join(format!("kyara-tags-{}.wav", std::process::id()));
         std::fs::write(&path, wav()).unwrap();
