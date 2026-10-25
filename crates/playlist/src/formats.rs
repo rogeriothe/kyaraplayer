@@ -28,7 +28,13 @@ pub fn read(path: &Path) -> io::Result<Vec<Item>> {
 fn resolve(base: &Path, raw: &str) -> PathBuf {
     let raw = raw.trim();
     if let Some(rest) = raw.strip_prefix("file://") {
-        return PathBuf::from(percent_decode(rest));
+        let decoded = percent_decode(rest);
+        // file:///C:/x arrives as "/C:/x"; drop the slash before the drive letter.
+        let is_drive = |s: &str| s.as_bytes().get(2) == Some(&b':');
+        if cfg!(windows) && decoded.starts_with('/') && is_drive(&decoded) {
+            return PathBuf::from(&decoded[1..]);
+        }
+        return PathBuf::from(decoded);
     }
     if raw.contains("://") {
         return PathBuf::from(raw);
@@ -155,16 +161,17 @@ mod tests {
         let dir = std::env::temp_dir().join(format!("kyara-pl-{}", std::process::id()));
         std::fs::create_dir_all(&dir).unwrap();
         let file = dir.join("t.m3u8");
+        let song = dir.join("música").join("ação.mp3");
         let entries = vec![Entry {
             id: 1,
-            path: "/música/ação.mp3".into(),
+            path: song.clone(),
             title: "Ação".into(),
             duration: Some(5.4),
             meta_loaded: true,
         }];
         write_m3u8(&file, &entries).unwrap();
         let items = read(&file).unwrap();
-        assert_eq!(items[0].path, PathBuf::from("/música/ação.mp3"));
+        assert_eq!(items[0].path, song);
         assert_eq!(items[0].title.as_deref(), Some("Ação"));
         assert_eq!(items[0].duration, Some(5.0));
         std::fs::remove_dir_all(dir).unwrap();
