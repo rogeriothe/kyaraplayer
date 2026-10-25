@@ -106,8 +106,8 @@ O plano de implementação e o estado de cada etapa estão em [`PLANO_IMPLEMENTA
 O workflow `.github/workflows/release.yml` compila para Linux e Windows e publica uma Release quando uma tag `v*` é enviada:
 
 ```sh
-git tag v0.1.0
-git push origin v0.1.0
+git tag v0.1.1
+git push origin v0.1.1
 ```
 
 Antes, atualize a versão em `Cargo.toml` (workspace), `src-tauri/tauri.conf.json` e `package.json`.
