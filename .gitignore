@@ -3,3 +3,5 @@
 /node_modules
 /src-tauri/gen
 *.exe
+/.claude/
+/.mcp.json
